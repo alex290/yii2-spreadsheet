@@ -6,86 +6,87 @@ Yii2 PHP Spreadsheet
 Виджет Excel для создания файла Excel или для загрузки файла Excel.
 
 
-Property
+Свойство
 --------
 
 string `$mode` режим экспорта или импорта. допустимые значения 'export' и 'import'  
 
 boolean `$isMultipleSheet` для настройки экспорта excel с несколькими листами.  
 
-array `$properties` for set property on the excel object.  
+array `$properties` для свойства set объекта excel.  
 
-array `$models` Model object or DataProvider object with much data.  
+array `$models` Объект Model или DataProvider объект с большим количеством данных.
 
-array `$columns` to get the attributes from the model, this valid value only the exist attribute on the model. If this is not set, then all attribute of the model will be set as columns.  
+array `$columns` чтобы получить атрибуты из модели, это допустимое значение имеет только атрибут exist в модели. Если это не задано, то весь атрибут модели будет задан в виде столбцов.
 
-array `$headers` to set the header column on first line. Set this if want to custom header. If not set, the header will get attributes label of model attributes.  
+array `$headers` чтобы установить столбец заголовка на первую строку. Если хотите, чтобы настраиваемый Заголовок. Если не задано, Заголовок получит метку атрибутов модели. 
 
-string|array `$fileName` is a name for file name to export or import. Multiple file name only use for import mode, not work if you use the export mode.  
+string|array `$fileName` название для имени файла для экспорта или импорта. Несколько Имя файла использовать только для режима импорта, не работает, если вы используете режим экспорта.  
 
-string `$savePath` is a directory to save the file or you can blank this to set the file as attachment.  
+string `$savePath` является каталогом для сохранения файла или вы можете очистить его, чтобы установить файл как вложение.
 
-string `$format` for excel to export. Valid value are 'Xls','Xlsx','Xml','Ods','Slk','Gnumeric','Csv', and 'Html'.  
+string `$format` для экспорта excel. Допустимое значение 'Xls','Xlsx','Xml','Ods','Slk','Gnumeric','Csv', и 'Html'.  
 
-boolean `$setFirstTitle` to set the title column on the first line. The columns will have a header on the first line.  
+boolean `$setFirstTitle` чтобы установить заголовки столбца на первой строке. Столбцы будут иметь заголовки в первой строке.
 
-boolean `$asAttachment` to set the file excel to download mode.  
+boolean `$asAttachment` чтобы установить файл excel в режим загрузки.
 
-boolean `$setFirstRecordAsKeys` to set the first record on excel file to a keys of array per line. If you want to set the keys of record column with first record, if it not set, the header with use the alphabet column on excel.  
+boolean `$setFirstRecordAsKeys` чтобы задать для первой записи в файле excel ключи массива на строку. Если вы хотите установить ключи столбца записи с первой записью, если он не установлен, Заголовок с использованием столбца алфавита в excel. 
 
-boolean `$setIndexSheetByName` to set the sheet index by sheet name or array result if the sheet not only one  
+boolean `$setIndexSheetByName` чтобы задать индекс листа по имени листа или результат массива, если лист не один.
 
-string `$getOnlySheet` is a sheet name to getting the data. This is only get the sheet with same name.
+string `$getOnlySheet` является именем листа для получения данных. Получаем лист с тем же именем.
 
-array|Formatter `$formatter` the formatter used to format model attribute values into displayable texts. This can be either an instance of [[Formatter]] or an configuration array for creating the [[Formatter]] instance. If this property is not set, the "formatter" application component will be used.
+array|Formatter `$formatter` для форматирования, используется для форматирования значений атрибутов модели в отображаемые тексты. Это может быть либо экземпляр [[Formatter]], либо массив конфигурации для создания экземпляра [[Formatter]]. Если это свойство не задано, то будет использоваться компонент приложения "formatter".
 
-Installation
+
+Установка
 ------------
 
-The preferred way to install this extension is through [composer](http://getcomposer.org/download/).
+Предпочтительным способом установки этого расширения является [composer](http://getcomposer.org/download/).
 
-Either run
+Ввести
 
 ```
 php composer.phar require --prefer-dist alex290/yii2-spreadsheet "*"
 ```
 
-or add
+или добавить
 
 ```
 "alex290/yii2-spreadsheet": "*"
 ```
 
-to the require section of your `composer.json` file.
+в раздел require в ваш `composer.json` файл.
 
 
-Usage 
+Использование 
 -----
 
-### Exporting Data
+### Экспортировать данные
 
-Exporting data into an excel file.
+### Экспортировать данные в excel файл.
 
 
 ```php
 <?php
 
-// export data only one worksheet.
+// экспорта данных только один лист.
 
 \alex290\spreadsheet\Excel::widget([
 	'models' => $allModels,
-	'mode' => 'export', //default value as 'export'
-	'columns' => ['column1','column2','column3'], //without header working, because the header will be get label from attribute label. 
+	'mode' => 'export', //значение по умолчанию как 'export'
+	'columns' => ['column1','column2','column3'], //без заголовка, заголовок получит значение из метки атрибута.
 	'headers' => ['column1' => 'Header Column 1','column2' => 'Header Column 2', 'column3' => 'Header Column 3'], 
 ]);
 
 \alex290\spreadsheet\Excel::export([
 	'models' => $allModels, 
-	'columns' => ['column1','column2','column3'], //without header working, because the header will be get label from attribute label. 
+	'columns' => ['column1','column2','column3'], //без заголовка, заголовок получит значение из метки атрибута. 
 	'headers' => ['column1' => 'Header Column 1','column2' => 'Header Column 2', 'column3' => 'Header Column 3'],
 ]);
 
-// export data with multiple worksheet.
+// экспорта данных с нескольких листов.
 
 \alex290\spreadsheet\Excel::widget([
 	'isMultipleSheet' => true, 
@@ -94,13 +95,13 @@ Exporting data into an excel file.
 		'sheet2' => $allModels2, 
 		'sheet3' => $allModels3
 	], 
-	'mode' => 'export', //default value as 'export' 
+	'mode' => 'export', //значение по умолчанию как 'export' 
 	'columns' => [
 		'sheet1' => ['column1','column2','column3'], 
 		'sheet2' => ['column1','column2','column3'], 
 		'sheet3' => ['column1','column2','column3']
 	],
-	//without header working, because the header will be get label from attribute label. 
+	//без заголовка, заголовок получит значение из метки атрибута. 
 	'headers' => [
 		'sheet1' => ['column1' => 'Header Column 1','column2' => 'Header Column 2', 'column3' => 'Header Column 3'], 
 		'sheet2' => ['column1' => 'Header Column 1','column2' => 'Header Column 2', 'column3' => 'Header Column 3'], 
@@ -119,7 +120,7 @@ Exporting data into an excel file.
 		'sheet2' => ['column1','column2','column3'], 
 		'sheet3' => ['column1','column2','column3']
 	], 
-	//without header working, because the header will be get label from attribute label. 
+	//без заголовка, заголовок получит значение из метки атрибута. 
 	'headers' => [
 		'sheet1' => ['column1' => 'Header Column 1','column2' => 'Header Column 2', 'column3' => 'Header Column 3'],
 		'sheet2' => ['column1' => 'Header Column 1','column2' => 'Header Column 2', 'column3' => 'Header Column 3'],
@@ -129,10 +130,10 @@ Exporting data into an excel file.
 
 ```
 
-New Feature for exporting data, you can use this if you familiar yii gridview. 
-That is same with gridview data column.
-Columns in array mode valid params are 'attribute', 'header', 'format', 'value', and footer (TODO).
-Columns in string mode valid layout are 'attribute:format:header:footer(TODO)'.
+Новая функция для экспорта данных, Вы можете использовать это, если вы знакомы yii gridview. 
+То же самое с столбцом данных gridview.
+Столбцы в режиме массива допустимыми параметрами являются 'attribute', 'header', 'format', 'value', и footer (TODO).
+Столбцы в строковом режиме допустимый макет 'attribute:format:header:footer(TODO)'.
   
 ```php
 <?php
@@ -164,31 +165,31 @@ Columns in string mode valid layout are 'attribute:format:header:footer(TODO)'.
 ```
 
 
-### Importing Data
+### Импортировать данные
 
-Import file excel and return into an array.
+Импорт файл excel и возврат в массив.
 
 
 ```php
 <?php
 
-$data = \alex290\spreadsheet\Excel::import($fileName, $config); // $config is an optional
+$data = \alex290\spreadsheet\Excel::import($fileName, $config); // $config это необязательный
 
 $data = \alex290\spreadsheet\Excel::widget([
 		'mode' => 'import', 
 		'fileName' => $fileName, 
-		'setFirstRecordAsKeys' => true, // if you want to set the keys of record column with first record, if it not set, the header with use the alphabet column on excel. 
-		'setIndexSheetByName' => true, // set this if your excel data with multiple worksheet, the index of array will be set with the sheet name. If this not set, the index will use numeric. 
-		'getOnlySheet' => 'sheet1', // you can set this property if you want to get the specified sheet from the excel data with multiple worksheet.
+		'setFirstRecordAsKeys' => true, // если вы хотите установить ключи записи столбца с первой записи, если он не установлен, то заголовок с использованием алфавита столбцов в Excel. 
+		'setIndexSheetByName' => true, // установить это, данные Excel с нескольких листов, индекс массива будет установлен с листа имя. Если это не задано, индекс будет использовать числовой. 
+		'getOnlySheet' => 'sheet1', // это свойство можно задать, если требуется получить указанный лист из данных excel с несколькими листами.
 	]);
 
 $data = \alex290\spreadsheet\Excel::import($fileName, [
-		'setFirstRecordAsKeys' => true, // if you want to set the keys of record column with first record, if it not set, the header with use the alphabet column on excel. 
-		'setIndexSheetByName' => true, // set this if your excel data with multiple worksheet, the index of array will be set with the sheet name. If this not set, the index will use numeric. 
-		'getOnlySheet' => 'sheet1', // you can set this property if you want to get the specified sheet from the excel data with multiple worksheet.
+		'setFirstRecordAsKeys' => true, // если вы хотите установить ключи записи столбца с первой записи, если он не установлен, то заголовок с использованием алфавита столбцов в Excel. 
+		'setIndexSheetByName' => true, // установить это, если данные Excel с нескольких листов, индекс массива будет установлен с листа имя. Если это не задано, индекс будет использовать числовой. 
+		'getOnlySheet' => 'sheet1', // это свойство можно задать, если требуется получить указанный лист из данных excel с несколькими листами.
 	]);
 
-// import data with multiple file.
+// импорт данных с нескольких файлов.
 
 $data = \alex290\spreadsheet\Excel::widget([
 	'mode' => 'import', 
@@ -197,9 +198,9 @@ $data = \alex290\spreadsheet\Excel::widget([
 		'file2' => $fileName2, 
 		'file3' => $fileName3,
 	], 
-		'setFirstRecordAsKeys' => true, // if you want to set the keys of record column with first record, if it not set, the header with use the alphabet column on excel. 
-		'setIndexSheetByName' => true, // set this if your excel data with multiple worksheet, the index of array will be set with the sheet name. If this not set, the index will use numeric. 
-		'getOnlySheet' => 'sheet1', // you can set this property if you want to get the specified sheet from the excel data with multiple worksheet.
+		'setFirstRecordAsKeys' => true, // если вы хотите установить ключи записи столбца с первой записи, если он не установлен, то заголовок с использованием алфавита столбцов в Excel. 
+		'setIndexSheetByName' => true, // установить это, если данные Excel с нескольких листов, индекс массива будет установлен с листа имя. Если это не задано, индекс будет использовать числовой. 
+		'getOnlySheet' => 'sheet1', // это свойство можно задать, если требуется получить указанный лист из данных excel с несколькими листами.
 	]);
 
 $data = \alex290\spreadsheet\Excel::import([
@@ -207,31 +208,28 @@ $data = \alex290\spreadsheet\Excel::import([
 	'file2' => $fileName2, 
 	'file3' => $fileName3,
 	], [
-		'setFirstRecordAsKeys' => true, // if you want to set the keys of record column with first record, if it not set, the header with use the alphabet column on excel. 
-		'setIndexSheetByName' => true, // set this if your excel data with multiple worksheet, the index of array will be set with the sheet name. If this not set, the index will use numeric. 
-		'getOnlySheet' => 'sheet1', // you can set this property if you want to get the specified sheet from the excel data with multiple worksheet.
+		'setFirstRecordAsKeys' => true, // если вы хотите установить ключи записи столбца с первой записи, если он не установлен, то заголовок с использованием алфавита столбцов в Excel. 
+		'setIndexSheetByName' => true, // установить это, если данные Excel с нескольких листов, индекс массива будет установлен с листа имя. Если это не задано, индекс будет использовать числовой. 
+		'getOnlySheet' => 'sheet1', // это свойство можно задать, если требуется получить указанный лист из данных excel с несколькими листами.
 	]);
 
 ```
 
-Result example from the code on the top :
+Пример результата из кода сверху :
 
 ```
 
-// only one sheet or specified sheet.
+// Только один лист или определенный лист.
 Array([0] => Array([name] => Alex, [email] => alex@webgoal.ru, [framework interest] => Yii2), [1] => Array([name] => Example, [email] => alex@webgoal.ru, [framework interest] => Yii2));
 
-// data with multiple worksheet
+// данные с нескольких листов
 Array([Sheet1] => Array([0] => Array([name] => Alex, [email] => alex@webgoal.ru, [framework interest] => Yii2), [1] => Array([name] => Example, [email] => alex@webgoal.ru, [framework interest] => Yii2)), [Sheet2] => Array([0] => Array([name] => Alex, [email] => alex@webgoal.ru, [framework interest] => Yii2), [1] => Array([name] => Example, [email] => alex@webgoal.ru, [framework interest] => Yii2)));
 
-// data with multiple file and specified sheet or only one worksheet
+// данные с несколькими файлами и указанным листом или только одним листом
 Array([file1] => Array([0] => Array([name] => Alex, [email] => alex@webgoal.ru, [framework interest] => Yii2), [1] => Array([name] => Example, [email] => alex@webgoal.ru, [framework interest] => Yii2)), [file2] => Array([0] => Array([name] => Alex, [email] => alex@webgoal.ru, [framework interest] => Yii2), [1] => Array([name] => Example, [email] => alex@webgoal.ru, [framework interest] => Yii2)));
 
-// data with multiple file and multiple worksheet
+// данные с несколькими файлами и несколькими листами
 Array([file1] => Array([Sheet1] => Array([0] => Array([name] => Alex, [email] => alex@webgoal.ru, [framework interest] => Yii2), [1] => Array([name] => Example, [email] => alex@webgoal.ru, [framework interest] => Yii2)), [Sheet2] => Array([0] => Array([name] => Alex, [email] => alex@webgoal.ru, [framework interest] => Yii2), [1] => Array([name] => Example, [email] => alex@webgoal.ru, [framework interest] => Yii2))), [file2] => Array([Sheet1] => Array([0] => Array([name] => Alex, [email] => alex@webgoal.ru, [framework interest] => Yii2), [1] => Array([name] => Example, [email] => alex@webgoal.ru, [framework interest] => Yii2)), [Sheet2] => Array([0] => Array([name] => Alex, [email] => alex@webgoal.ru, [framework interest] => Yii2), [1] => Array([name] => Example, [email] => alex@webgoal.ru, [framework interest] => Yii2))));
 
 ```
 
-TODO
-----
-- Adding footer params for columns in exporting data.
