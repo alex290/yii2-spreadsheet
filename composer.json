@@ -1,0 +1,28 @@
+{
+	"name" : "alex290/yii2-spreadsheet",
+	"description" : "Exporting PHP to Excel or Importing Excel to PHP",
+	"type" : "yii2-extension",
+	"keywords" : [
+		"yii2",
+		"extension",
+		"excel",
+		"xls",
+		"export",
+		"import"
+	],
+	"license" : "MIT",
+	"authors" : [{
+			"name" : "Alexandr",
+			"email" : "alex@webgoal.com"
+		}
+	],
+	"require" : {
+		"yiisoft/yii2" : "*",
+		"phpoffice/phpspreadsheet" : "*"
+	},
+	"autoload" : {
+		"psr-4" : {
+			"alex290\\spreadsheet\\" : ""
+		}
+	}
+}
